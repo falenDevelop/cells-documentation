@@ -2,17 +2,17 @@
 
 const MENU_ITEMS = [
   {
-    id: 'dashboard',
-    name: 'Dashboard',
+    id: 'Documentacions',
+    name: 'Documentacions',
     icon: 'home-outline',
-    file: 'admin.html', // Nombre del archivo HTML
-    active: true,
+    file: 'index.html', // Ahora Dashboard es index.html
+    active: false,
   },
   {
-    id: 'services',
-    name: 'Servicios',
+    id: 'Mantenimiento',
+    name: 'Mantenimiento',
     icon: 'grid-outline',
-    file: 'index.html', // Nombre del archivo HTML
+    file: 'admin.html', // Ahora Servicios es admin.html
     active: false,
   },
 ];
