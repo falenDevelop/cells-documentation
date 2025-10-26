@@ -52,10 +52,9 @@ function updateActiveMenuItem() {
   if (activeItem) {
     activeItem.active = true;
   } else {
-    // Si no se encuentra, activar dashboard por defecto
-    const defaultItem = MENU_ITEMS.find((item) => item.id === 'dashboard');
-    if (defaultItem) {
-      defaultItem.active = true;
+    // Si no se encuentra, activar el primer item por defecto
+    if (MENU_ITEMS.length > 0) {
+      MENU_ITEMS[0].active = true;
     }
   }
 }
