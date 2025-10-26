@@ -118,7 +118,17 @@ document.addEventListener('DOMContentLoaded', function () {
     if (btnText) btnText.textContent = 'Actualizar servicio';
     const cancelBtn = document.getElementById('serviceFormCancelBtn');
     if (cancelBtn) cancelBtn.style.display = '';
-    // Opcional: scroll al formulario
+    // Abrir el acordeón del formulario si está colapsado (Bootstrap)
+    const collapseEl = document.getElementById('serviceFormCollapse');
+    if (collapseEl && typeof bootstrap !== 'undefined') {
+      const bsCollapse = bootstrap.Collapse.getOrCreateInstance(collapseEl);
+      bsCollapse.show();
+    } else if (collapseEl) {
+      // Fallback si Bootstrap no está disponible
+      collapseEl.classList.add('show');
+      collapseEl.style.display = 'block';
+    }
+    // Scroll al formulario
     document.getElementById('serviceForm').scrollIntoView({ behavior: 'smooth' });
   };
 
