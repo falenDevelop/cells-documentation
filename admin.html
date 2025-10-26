@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editor Quill - Imágenes y Código</title>
+
+    <!-- Quill CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="./utils/styles.css" />
+
+    <!-- Icon Selector CSS -->
+    <link rel="stylesheet" href="utils/icon-selector.css" />
+
+    <!-- Highlight.js para resaltar código -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- Ion Icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  </head>
+
+  <body>
+    <div class="dashboard-container">
+      <div class="sidebar">
+        <div class="sidebar-logo">
+          <h4>
+            <span style="font-weight: 300">Cells</span>
+            <span style="font-weight: 700">Documentación</span>
+          </h4>
+          <small>Sistema para la gestión de documentación</small>
+        </div>
+
+        <div class="sidebar-menu">
+          <!-- El menú se genera dinámicamente desde menu.js -->
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="user-info-sidebar">
+            <div class="user-avatar">UD</div>
+            <div style="flex: 1">
+              <div style="font-size: 14px; font-weight: 600">Usuario Demo</div>
+              <div style="font-size: 12px">demo@email.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="top-navbar">
+          <div class="user-dropdown">
+            <div class="user-info">
+              <p class="user-name">Usuario Demo</p>
+              <p class="user-email">demo@email.com</p>
+            </div>
+            <div class="user-avatar">UD</div>
+          </div>
+        </div>
+        <div class="content-area">
+          <h1 class="page-title">Framework Cell - Documentación</h1>
+          <p class="page-subtitle">Panel de mantenimiento para agregar nueva documentación al framework Cell. Crea guías, ejemplos y referencias técnicas de forma estructurada.</p>
+
+          <!-- ...otros contenidos arriba... -->
+
+          <!-- Panel acordeón para el formulario de servicio -->
+          <div class="accordion" id="serviceAccordion" style="margin-bottom: 32px">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="serviceFormHeader">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#serviceFormCollapse" aria-expanded="false" aria-controls="serviceFormCollapse">Agregar nuevo servicio</button>
+              </h2>
+              <div id="serviceFormCollapse" class="accordion-collapse collapse" aria-labelledby="serviceFormHeader" data-bs-parent="#serviceAccordion">
+                <div class="accordion-body" style="background: #fff; padding: 0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06)">
+                  <form id="serviceForm" style="padding: 24px">
+                    <!-- Primera fila: Título y Descripción -->
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px">
+                      <div style="flex: 1; min-width: 200px">
+                        <label>Nombre del servicio</label>
+                        <input type="text" name="title" id="serviceTitle" class="form-control" placeholder="Ej: Tips de ahorro" required />
+                      </div>
+                      <div style="flex: 1; min-width: 200px">
+                        <label>Icono del servicio</label>
+                        <select name="icon" id="serviceIcon" class="form-control" required>
+                          <!-- Las opciones se generan dinámicamente desde icon-selector.js -->
+                        </select>
+                      </div>
+                      <div style="flex: 1; min-width: 200px">
+                        <label>Tipo</label>
+                        <select name="type" id="serviceType" class="form-control" required>
+                          <!-- Las opciones se generan dinámicamente desde categories.js -->
+                        </select>
+                      </div>
+                    </div>
+
+                    <!-- Segunda fila: Icono y Tipo -->
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap">
+                      <div style="flex: 2; min-width: 300px">
+                        <label>Descripción breve</label>
+                        <input type="text" name="description" id="serviceDescription" class="form-control" placeholder="Ej: Consejos prácticos para optimizar tus finanzas personales" maxlength="150" />
+                      </div>
+                    </div>
+
+                    <!-- Selector de lenguaje y Editor Quill -->
+                    <div style="margin-top: 16px">
+                      <label>Contenido</label>
+                      <div id="quillEditor" style="min-height: 200px"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-3">
+                      <span id="serviceFormSubmitText">Agregar servicio</span>
+                    </button>
+                    <button type="button" id="serviceFormCancelBtn" class="btn btn-secondary mt-3" style="display: none; margin-left: 12px">Cancelar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Área de resultado para copiar -->
+          <div id="serviceResult" style="display: none; margin-top: 32px; background: #f8f9fa; padding: 24px; border-radius: 12px; border: 1px solid #dee2e6">
+            <h5 style="color: #28a745; margin-bottom: 16px">
+              <ion-icon name="checkmark-circle-outline" style="margin-right: 8px"></ion-icon>
+              ¡Servicio creado exitosamente!
+            </h5>
+            <p><strong>Instrucciones:</strong> Copia el código de abajo y agrégalo al archivo <code>utils/services-data-list.js</code></p>
+
+            <div style="margin: 16px 0">
+              <label><strong>Código a agregar ANTES del último ] en el archivo:</strong></label>
+              <textarea id="serviceCode" readonly style="width: 100%; height: 200px; font-family: 'Courier New', monospace; font-size: 12px; background: #fff; border: 1px solid #ccc; padding: 12px; border-radius: 4px"></textarea>
+            </div>
+
+            <div style="display: flex; gap: 12px">
+              <button onclick="copyServiceCode()" class="btn btn-success"><ion-icon name="copy-outline"></ion-icon> Copiar código</button>
+              <button onclick="hideServiceResult()" class="btn btn-secondary">Cerrar</button>
+            </div>
+          </div>
+          <!-- Listado de servicios existentes (parte baja) -->
+          <div id="servicesListPanel" style="margin-top: 48px">
+            <div class="card" style="padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); background: #fff">
+              <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 18px; flex-wrap: wrap">
+                <h4 style="margin: 0">Servicios existentes</h4>
+                <input id="serviceFilterInput" type="text" class="form-control" placeholder="Filtrar por nombre o descripción..." style="max-width: 350px" oninput="filterServicesListPanel()" />
+              </div>
+              <div id="servicesList"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quill JS -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+    <!-- Menu Configuration -->
+    <script src="utils/menu.js"></script>
+
+    <!-- Categories Configuration -->
+    <script src="utils/categories.js"></script>
+
+    <!-- Icon Selector Configuration -->
+    <script src="utils/icon-selector.js"></script>
+
+    <!-- Services Data List -->
+    <script src="utils/services-data-list.js"></script>
+
+    <!-- Services Data Configuration -->
+    <script src="utils/services-data.js"></script>
+
+    <!-- Dashboard JavaScript -->
+    <script src="utils/dashboard.js"></script>
+    <!-- Bootstrap JS (necesario para el acordeón) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
