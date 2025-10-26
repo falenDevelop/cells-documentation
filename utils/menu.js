@@ -2,8 +2,8 @@
 
 const MENU_ITEMS = [
   {
-    id: 'Documentacions',
-    name: 'Documentacions',
+    id: 'Documentation',
+    name: 'Documentación',
     icon: 'home-outline',
     file: 'index.html', // Ahora Dashboard es index.html
     active: false,
